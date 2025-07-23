@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Summer Geometry Competition Result</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #1d976c, #93f9b9);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 360px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      backdrop-filter: blur(6px);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .icon {
+      width: 70px;
+      height: 70px;
+      background-color: #edf2f7;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: bounce 1.5s infinite;
+    }
+
+    .icon img {
+      width: 38px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+
+    p {
+      color: #4a5568;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 12px;
+      width: 100%;
+      border: 2px solid #a0aec0;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background-color: #e6fffa;
+      color: #2d3748;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #38b2ac;
+    }
+
+    .result {
+      background-color: #f0fff4;
+      border: 1.5px dashed #68d391;
+      border-radius: 8px;
+      padding: 18px;
+      min-height: 60px;
+      font-size: 16px;
+      color: #22543d;
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-calc {
+      background-color: #f6e05e;
+      color: #2d3748;
+    }
+
+    .btn-calc:hover {
+      background-color: #ecc94b;
+      transform: translateY(-2px);
+    }
+
+    .btn-reset {
+      background-color: #48bb78;
+      color: white;
+    }
+
+    .btn-reset:hover {
+      background-color: #38a169;
+      transform: translateY(-2px);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="icon">
+      <img src="https://img.icons8.com/color/48/trophy.png" alt="Trophy"/>
+    </div>
+    <h2>Summer Geometry<br>Competition Result</h2>
+    <p>Enter your name to see your score.</p>
+    <input type="text" id="nameInput" placeholder="Your name" />
+    <div class="result" id="scoreOutput">Your score awaits...</div>
+    <div class="buttons">
+      <button class="btn btn-calc" onclick="showResult()">⚡ Show Result</button>
+      <button class="btn btn-reset" onclick="resetForm()">🔄 Reset</button>
+    </div>
+  </div>
+
+  <script>
+    const studentData = {
+      "Abby T": "85 / 100",
+      "Jay K": "84 / 100",
+      "Alvin C": "84 / 100",
+      "Vivi L": "83 / 100",
+      "Parsa F": "80 / 100",
+      "Joel D": "80 / 100",
+      "Shreyas G": "80 / 100",
+      "Vivi L": "79 / 100",
+      "Shavin K": "78 / 100",
+      "Yintong C": "78 / 100",
+      "Steve C": "77 / 100",
+      "Doelle B": "74 / 100",
+      "Marco C": "74 / 100",
+      "Saumya S": "72 / 100",
+      "Tsega W": "72 / 100",
+      "Jayden C": "70 / 100",
+      "Monica M": "69 / 100",
+      "Maxwell T": "68 / 100",
+      "Dhayashree R": "68 / 100",
+      "Satvik A": "68 / 100",
+      "Tinsae A": "68 / 100",
+      "Piyush M": "66 / 100",
+      "Yagya B": "65 / 100",
+      "Vignesh S": "64 / 100",
+      "Sofiat K": "64 / 100",
+      "Arko C": "63 / 100",
+      "Elle M": "62 / 100",
+      "Yudhish K": "62 / 100",
+      "Harry Z": "61 / 100",
+      "Varsha S": "61 / 100",
+      "Saleh E": "60 / 100",
+      "Daksh P": "60 / 100",
+      "Justin K": "59 / 100",
+      "Yoon Ha H": "59 / 100",
+      "Stuti G": "58 / 100",
+      "Rivi K": "57 / 100",
+      "Ethan L": "56 / 100",
+      "Jeremy H": "55 / 100",
+      "Arnav M": "54 / 100",
+      "Katelyn T": "53 / 100",
+      "Anton K": "53 / 100",
+      "Shiven K": "53 / 100",
+      "Ainesh G": "53 / 100",
+      "Tasin Mahmud": "52 / 100",
+      "Afia F": "52 / 100",
+      "Zhuo Zhan C": "52 / 100",
+      "Anika D": "52 / 100",
+      "Sudivya sah": "51 / 100",
+      "Ayush J": "51 / 100",
+      "Eriko A": "51 / 100",
+      "Siddharth M": "50 / 100",
+      "Dana S": "50 / 100",
+      "Sohayb K": "49 / 100",
+      "Truman B": "49 / 100",
+      "Akilesh S": "48 / 100",
+      "Liam O": "48 / 100",
+      "Naoto H": "48 / 100",
+      "Mingshen S": "48 / 100",
+      "Christopher L": "48 / 100",
+      "myth a": "48 / 100",
+      "Suhaas G": "47 / 100",
+      "Kien D": "47 / 100",
+      "Max X": "47 / 100",
+      "Akshat S": "46 / 100",
+      "Avneesh G": "45 / 100",
+      "Amanda M": "45 / 100",
+      "Dawei W": "45 / 100",
+      "Bowen M": "44 / 100",
+      "Liam D": "44 / 100",
+      "Pranavi P": "43 / 100",
+      "Angela H": "43 / 100",
+      "Siddh S": "43 / 100",
+      "Sarra R": "43 / 100",
+      "Leo K": "42 / 100",
+      "Jai P": "42 / 100",
+      "Anderson S": "41 / 100",
+      "Sophia B": "41 / 100",
+      "Arav B": "41 / 100",
+      "Daksh S": "41 / 100",
+      "Hamasa D": "41 / 100",
+      "Isaac T": "40 / 100",
+      "Xinyue Y": "39 / 100",
+      "Sophie Z": "39 / 100",
+      "Samuel M": "39 / 100",
+      "Syed Badiuddin A": "38 / 100",
+      "Rebekah S": "37 / 100",
+      "Syed Badiuddin A": "36 / 100",
+      "Eduardo S": "35 / 100",
+      "Nainika R": "35 / 100",
+      "Dhruv P": "35 / 100",
+      "Anamaria E": "33 / 100",
+      "Arjun K": "32 / 100",
+      "Ruthvik B": "32 / 100",
+      "Tsion N": "32 / 100",
+      "Kena G": "32 / 100",
+      "Saksham S": "31 / 100",
+      "Lucas G": "31 / 100",
+      "Justin M": "29 / 100",
+      "Tasheen Uzzaman Khan": "29 / 100",
+      "Celine L": "29 / 100",
+      "Hey Y": "28 / 100",
+      "Sim K": "28 / 100",
+      "Rahi J": "27 / 100",
+      "Helen N": "24 / 100",
+      "Navya G": "20 / 100",
+      "ME": "20 / 100",
+      "Rithvika A": "11 / 100",
+      "Yu-Feng Yan": "0 / 100",
+      "Gaurav D": "89 / 100",
+      "Dhyan T": "89 / 100",
+      "Maheen I": "88 / 100",
+      "Amaani R": "88 / 100",
+      "Keerthana G": "88 / 100",
+      "Sai S": "88 / 100",
+      "Ananya S": "86 / 100",
+      "Wambui M": "82 / 100",
+      "Anshul S": "82 / 100",
+      "Sushanth B": "80 / 100",
+      "Sirishree M S": "80 / 100",
+      "Paul B": "80 / 100",
+      "Deshna J": "80 / 100",
+      "Irfan K": "79 / 100",
+      "Katana M": "79 / 100",
+      "Rachelle R": "79 / 100",
+      "Dhanvin V": "78 / 100",
+      "Riti S": "77 / 100",
+      "Nitin C": "76 / 100",
+      "Fatima A": "76 / 100",
+      "Aadi K": "76 / 100",
+      "Shreevani N": "76 / 100",
+      "Ayesha I": "76 / 100",
+      "Siddhi G": "75 / 100",
+      "Devansh M": "75 / 100",
+      "Monique N": "74 / 100",
+      "Parker B": "74 / 100",
+      "Santiago G": "74 / 100",
+      "Kira T": "74 / 100",
+      "Lucia A": "74 / 100",
+      "Saachi M": "73 / 100",
+      "Haasini S": "73 / 100",
+      "David A": "72 / 100",
+      "Almas Z": "72 / 100",
+      "Indra A": "71 / 100",
+      "Joshua C": "70 / 100",
+      "Tijil S": "69 / 100",
+      "Zavi A": "69 / 100",
+      "Dante C": "68 / 100",
+      "Dolraj P": "68 / 100",
+      "Noor Y": "68 / 100",
+      "Amir Mohammed": "68 / 100",
+      "Arnav J": "67 / 100",
+      "Pranasya A": "67 / 100",
+      "Vania P": "67 / 100",
+      "Jiamin T": "66 / 100",
+      "Daniel Z": "66 / 100",
+      "Alex Z": "65 / 100",
+      "Suchit C": "65 / 100",
+      "Siddhesh N": "64 / 100",
+      "Raghav S": "64 / 100",
+      "Samarth S": "64 / 100",
+      "Kaylee Kim": "64 / 100",
+      "Edric E": "63 / 100",
+      "Owin A": "62 / 100",
+      "Emmanuel Dankwah": "61 / 100",
+      "Mahesh R": "60 / 100",
+      "Nabonita S": "60 / 100",
+      "Ayesha": "60 / 100",
+      "Michael C": "59 / 100",
+      "Sonakshi R": "59 / 100",
+      "Eshika M": "58 / 100",
+      "Aashvi K": "58 / 100",
+      "Madison G": "57 / 100",
+      "Sadiqah H": "57 / 100",
+      "Jeremy K": "57 / 100",
+      "Piyush A": "57 / 100",
+      "Natalia F": "57 / 100",
+      "Gargi M": "57 / 100",
+      "Andrew Y": "56 / 100",
+      "Anish T": "56 / 100",
+      "Kinza J": "56 / 100",
+      "Layla K": "56 / 100",
+      "Nomuun B": "56 / 100",
+      "Ivan C": "55 / 100",
+      "Aiden C": "54 / 100",
+      "Meria F": "54 / 100",
+      "Sarah Z": "53 / 100",
+      "Vrajna P": "53 / 100",
+      "Evan W": "53 / 100",
+      "Ritesh K": "52 / 100",
+      "Ricardo U": "52 / 100",
+      "Onabisi M": "51 / 100",
+      "Aadi J": "51 / 100",
+      "Emerson Y": "50 / 100",
+      "Dung L": "50 / 100",
+      "Luna Y": "50 / 100",
+      "Behshan A": "49 / 100",
+      "Turah": "48 / 100",
+      "April C": "48 / 100",
+      "Rithik I": "48 / 100",
+      "Ciaran F": "47 / 100",
+      "Pamela N": "47 / 100",
+      "Sewanth P": "47 / 100",
+      "Khurshida a": "47 / 100",
+      "Shreshta G": "46 / 100",
+      "Ariella Sansita": "46 / 100",
+      "Yana K": "46 / 100",
+      "Maheen N": "46 / 100",
+      "yahya s": "46 / 100",
+      "Ryan P": "45 / 100",
+      "Kristina A": "45 / 100",
+      "Selly D": "45 / 100",
+      "Fabeha k": "45 / 100",
+      "Sri S": "45 / 100",
+      "Dima Z": "45 / 100",
+      "Vansh R": "45 / 100",
+      "Caitlyn C": "45 / 100",
+      "Hritika P": "45 / 100",
+      "Ellie K": "45 / 100",
+      "Belen C": "44 / 100",
+      "Penelope B": "44 / 100",
+      "Amaan F": "44 / 100",
+      "Tejasvi K": "44 / 100",
+      "Zarin I": "44 / 100",
+      "Manasvini L": "44 / 100",
+      "Wendy C": "43 / 100",
+      "Felicity Y": "43 / 100",
+      "Sophia C": "43 / 100",
+      "Louise J": "43 / 100",
+      "Manza Musa": "43 / 100",
+      "William (BZ) O": "43 / 100",
+      "Sanika K": "43 / 100",
+      "Ryan X": "43 / 100",
+      "Toan C.": "42 / 100",
+      "Sonny M": "42 / 100",
+      "Gaurika U": "42 / 100",
+      "Dhruvi P": "42 / 100",
+      "Nieves Espinel": "42 / 100",
+      "Matthew L": "41 / 100",
+      "Dee M": "41 / 100",
+      "Pranav S": "41 / 100",
+      "Liya B": "41 / 100",
+      "Vedant J": "41 / 100",
+      "Sushmita J": "41 / 100",
+      "Himanshu S": "41 / 100",
+      "Srinika G": "40 / 100",
+      "Joseph A": "40 / 100",
+      "Pavel B": "40 / 100",
+      "Tsion N": "40 / 100",
+      "Parv G": "40 / 100",
+      "Maryam K": "40 / 100",
+      "Hritika N": "39 / 100",
+      "Britton R": "39 / 100",
+      "Natalie C.": "39 / 100",
+      "Yuvraj Singh J": "38 / 100",
+      "Eunseo W": "38 / 100",
+      "Jannatul J": "36 / 100",
+      "Breanna M": "36 / 100",
+      "Peace T": "36 / 100",
+      "Khizar H": "36 / 100",
+      "Daryl g": "35 / 100",
+      "Arlyn R": "33 / 100",
+      "Daniel K": "32 / 100",
+      "Aarna S": "32 / 100",
+      "Champion J": "32 / 100",
+      "Marvelous L": "32 / 100",
+      "Luther B": "31 / 100",
+      "Aabida H": "29 / 100",
+      "Nizar S": "29 / 100",
+      "Katrin O": "28 / 100",
+      "Shiven S": "24 / 100",
+      "Alyan Jawaid": "24 / 100",
+      "Prakshay P": "24 / 100",
+      "Sean P": "23 / 100",
+      "Oyin M": "22 / 100",
+      "Flo S": "20 / 100",
+      "Corey P": "18 / 100",
+      "Samantha D": "16 / 100",
+      "Yuvraj P": "12 / 100"
+    };
+
+    function showResult() {
+      const name = document.getElementById("nameInput").value.trim();
+      const output = document.getElementById("scoreOutput");
+      
+      if (name in studentData) {
+        output.innerHTML = `<strong>${name}:</strong> ${studentData[name]}`;
+      } else {
+        output.textContent = "Name not found in records";
+      }
+    }
+
+    function resetForm() {
+      document.getElementById("nameInput").value = "";
+      document.getElementById("scoreOutput").textContent = "Your score awaits...";
+    }
+
+    // Allow pressing Enter key to search
+    document.getElementById("nameInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") showResult();
+    });
+  </script>
+</body>
+</html>
